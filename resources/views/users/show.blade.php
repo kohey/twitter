@@ -12,10 +12,19 @@
     </aside>
     <div class="col-sm-8">
         <ul class="nav nav-tabs nav-justified mb-3">
-            <li class="nav-item"><a href="#" class="nav-link">タイムライン</a></li>
+            <li class="nav-item"><a href="{{route('users.show',['id'=>$user->id])}}" class="nav-link{{Request::is('users/',$user->id)? 'active': ''}}">タイムライン<span class="budge budge-secondary">{{$count_microposts}}</span></a></li>
             <li class="nav-item"><a href="#" class="nav-link">フォロー</a></li>
             <li class="nav-item"><a href="#" class="nav-link">フォロワー</a></li>
         </ul>
+        {!! Form::open(['route' => 'microposts.store']) !!}
+        <div class="form-group">
+            {!! Form::textarea('content', old('content'), ['class' => 'form-control', 'rows' => '2']) !!}
+            {!! Form::submit('Post', ['class' => 'btn btn-primary btn-block']) !!}
+        </div>
+        {!! Form::close() !!}
+        @if(count($microposts) > 0)
+        @include('microposts.microposts',['microposts' => $microposts])
+        @endif
     </div>
 </div>
 @endsection 
