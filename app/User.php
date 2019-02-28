@@ -66,7 +66,7 @@ class User extends Authenticatable
         if ($exist && !$its_me) {
             return false;
         } else {
-            $this->following()->detach($userId);
+            $this->followings()->detach($userId);
 
             return true;
         }
@@ -75,6 +75,6 @@ class User extends Authenticatable
     //現在フォローしているかしていないかの判定
     public function is_following($userId)
     {
-        $this->following()->where('follow_id', $userId)->exists();
+        $this->followings()->where('follow_id', $userId)->exists();
     }
 }
